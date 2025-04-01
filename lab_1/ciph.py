@@ -3,113 +3,105 @@ import sys
 from const import ALPHABET, ALPHABET_SIZE
 
 
-def get_key_symb(key: str, index: int) -> str:
+def get_key_character(key: str, position: int) -> str:
     """
-    Retrieves the corresponding character from the repeating key sequence.
+    Returns the corresponding character from the key at a specific position.
     :param key: The encryption key.
-    :param index: The index of the character in the text.
-    :return: The corresponding character from the key.
+    :param position: The position in the text.
+    :return: The character from the key at the given position.
     :raises ValueError: If the key is empty.
     """
     if not key:
-        raise ValueError("The key cannot be empty.")
-    return key[index % len(key)]
+        raise ValueError("The encryption key cannot be empty.")
+
+    return key[position % len(key)]
 
 
-def get_encrypted_symb(old_sym: str, key_sym: str) -> str:
+def shift_character(char: str, key_char: str, encrypt: bool = True) -> str:
     """
-    Encrypts a single character using the Trithemius cipher.
-    :param old_sym: The original character.
-    :param key_sym: The corresponding key character.
-    :return: The encrypted character.
-    """
-    try:
-        current_idx = ALPHABET.index(old_sym.lower())
-        key_idx = ALPHABET.index(key_sym.lower())
-        encrypt_idx = (current_idx + key_idx) % ALPHABET_SIZE
-        return ALPHABET[encrypt_idx].upper() if old_sym.isupper() else ALPHABET[encrypt_idx]
-    except ValueError:
-        return old_sym  # Non-alphabetic characters remain unchanged.
-
-
-def get_decrypted_symb(encrypted_sym: str, key_sym: str) -> str:
-    """
-    Decrypts a single character using the Trithemius cipher.
-    :param encrypted_sym: The encrypted character.
-    :param key_sym: The corresponding key character.
-    :return: The decrypted character.
+    Encrypts or decrypts a single character using the modified Trithemius cipher.
+    :param char: The character to encrypt/decrypt.
+    :param key_char: The corresponding key character.
+    :param encrypt: Whether to encrypt (True) or decrypt (False).
+    :return: The transformed character.
     """
     try:
-        encrypted_idx = ALPHABET.index(encrypted_sym.lower())
-        key_idx = ALPHABET.index(key_sym.lower())
-        decrypted_idx = (encrypted_idx - key_idx) % ALPHABET_SIZE
-        return ALPHABET[decrypted_idx].upper() if encrypted_sym.isupper() else ALPHABET[decrypted_idx]
+        text_index = ALPHABET.index(char.lower())
+        key_index = ALPHABET.index(key_char.lower())
+        new_index = (text_index + key_index) % ALPHABET_SIZE if encrypt else (text_index - key_index) % ALPHABET_SIZE
+        return ALPHABET[new_index].upper() if char.isupper() else ALPHABET[new_index]
+
     except ValueError:
-        return encrypted_sym  # Non-alphabetic characters remain unchanged.
+        return char
 
 
-def vigenere_cipher_encrypt(input_text: str, key: str) -> str:
+def process_text(text: str, key: str, encrypt: bool = True) -> str:
     """
-    Encrypts text using the Trithemius cipher.
-    :param input_text: The plaintext to be encrypted.
+    Encrypts or decrypts text using the modified Trithemius cipher.
+    :param text: The input text.
+    :param key: The encryption/decryption key.
+    :param encrypt: Whether to encrypt (True) or decrypt (False).
+    :return: The processed text.
+    :raises ValueError: If the text or key is empty.
+    """
+    if not text:
+        raise ValueError("The input text cannot be empty.")
+
+    if not key:
+        raise ValueError("The encryption key cannot be empty.")
+
+    return "".join(shift_character(text[i], get_key_character(key, i), encrypt) for i in range(len(text)))
+
+
+def encrypt_text(plaintext: str, key: str) -> str:
+    """
+    Encrypts plaintext using the modified Trithemius cipher.
+    :param plaintext: The text to encrypt.
     :param key: The encryption key.
     :return: The encrypted text.
-    :raises ValueError: If the input text or key is empty.
     """
-    if not input_text:
-        raise ValueError("Input text cannot be empty.")
-
-    if not key:
-        raise ValueError("Key cannot be empty.")
-    return "".join(get_encrypted_symb(input_text[i], get_key_symb(key, i)) for i in range(len(input_text)))
+    return process_text(plaintext, key, encrypt=True)
 
 
-def vigenere_cipher_decrypt(encrypted_text: str, key: str) -> str:
+def decrypt_text(ciphertext: str, key: str) -> str:
     """
-    Decrypts text encrypted with the Trithemius cipher.
-    :param encrypted_text: The encrypted text.
+    Decrypts ciphertext using the modified Trithemius cipher.
+
+    :param ciphertext: The text to decrypt.
     :param key: The decryption key.
     :return: The decrypted text.
-    :raises ValueError: If the encrypted text or key is empty.
     """
-    if not encrypted_text:
-        raise ValueError("Encrypted text cannot be empty.")
-
-    if not key:
-        raise ValueError("Key cannot be empty.")
-        return "".join(get_decrypted_symb(encrypted_text[i], get_key_symb(key, i)) for i in range(len(encrypted_text)))
+    return process_text(ciphertext, key, encrypt=False)
 
 
-def read_text(filename: str) -> str:
-        """
-        Reads text from a file.
-        :param filename: The path to the input file.
-        :return: The file content as a string.
-        :raises SystemExit: If the file is not found or another error occurs.
-        """
-        try:
-            with open(filename, 'r', encoding='utf-8') as text:
-                return text.read().strip()
+def read_file(file_path: str) -> str:
+    """
+    Reads the content of a file.
+    :param file_path: The path to the file.
+    :return: The file content as a string.
+    :raises SystemExit: If the file is not found or cannot be read.
+    """
+    try:
+        with open(file_path, 'r', encoding='utf-8') as file:
+            return file.read().strip()
+    except FileNotFoundError:
+        print(f"Error: File '{file_path}' not found.", file=sys.stderr)
+        sys.exit(1)
+    except Exception as e:
+        print(f"Error reading file '{file_path}': {e}", file=sys.stderr)
+        sys.exit(1)
 
-        except FileNotFoundError:
-            print(f"Error: File '{filename}' not found.", file=sys.stderr)
-            sys.exit(1)
-        except Exception as e:
-            print(f"Error reading file '{filename}': {e}", file=sys.stderr)
-            sys.exit(1)
 
-
-def write_text(filename: str, text: str) -> None:
-        """
-        Writes text to a file.
-        :param filename: The path to the output file.
-        :param text: The text to write.
-        :raises SystemExit: If an error occurs while writing to the file.
-        """
-        try:
-            with open(filename, 'w', encoding='utf-8') as file:
-                file.write(text)
-
-        except Exception as e:
-            print(f"Error writing to file '{filename}': {e}", file=sys.stderr)
-            sys.exit(1)
+def write_file(file_path: str, content: str) -> None:
+    """
+    Writes content to a file.
+    :param file_path: The path to the file.
+    :param content: The text to be written.
+    :raises SystemExit: If an error occurs while writing to the file.
+    """
+    try:
+        with open(file_path, 'w', encoding='utf-8') as file:
+            file.write(content)
+    except Exception as e:
+        print(f"Error writing to file '{file_path}': {e}", file=sys.stderr)
+        sys.exit(1)
