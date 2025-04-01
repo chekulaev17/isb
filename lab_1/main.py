@@ -1,39 +1,44 @@
-import argparse
 import sys
+import argparse
 
-from ciph import vigenere_cipher_encrypt, vigenere_cipher_decrypt, read_text, write_text
+from ciph import encrypt_text, decrypt_text, read_file, write_file
 
 
-def parser_create():
+def create_parser():
     """
-    Creates a command-line argument parser.
-    :return: Parsed command-line arguments.
+    Creates and configures the argument parser for the CLI.
+    :return: Configured argument parser.
     """
     parser = argparse.ArgumentParser(description="Encrypt or decrypt text using the Trithemius cipher.")
-    parser.add_argument('mode', choices=['encrypt', 'decrypt'], help="Mode: 'encrypt' to encrypt, 'decrypt' to decrypt.")
-    parser.add_argument('input_text', type=str, help="Path to the input text file.")
-    parser.add_argument('output_text', type=str, help="Path to the output text file.")
-    parser.add_argument('key_filename', type=str, help="Path to the file containing the encryption key.")
-    return parser.parse_args()
+    parser.add_argument('mode', choices=['encrypt', 'decrypt'], help="Operation mode: 'encrypt' or 'decrypt'.")
+    parser.add_argument('input_file', type=str, help="Path to the input text file.")
+    parser.add_argument('output_file', type=str, help="Path to the output text file.")
+    parser.add_argument('key_file', type=str, help="Path to the file containing the encryption key.")
+    return parser
 
 
 def main():
     """
-    Main function that processes user input and executes encryption or decryption.
+    Main function that processes user input and performs encryption or decryption.
     :raises SystemExit: If an error occurs during processing.
     """
-    args = parser_create()
-    key = read_text(args.key_filename)
-    input_text = read_text(args.input_text)
+    parser = create_parser()
+    args = parser.parse_args()
     try:
+        key = read_file(args.key_file)
+        input_text = read_file(args.input_file)
         if args.mode == 'encrypt':
-            result_text = vigenere_cipher_encrypt(input_text, key)
+            result_text = encrypt_text(input_text, key)
         else:
-            result_text = vigenere_cipher_decrypt(input_text, key)
-        write_text(args.output_text, result_text)
-        print(f"Result saved to {args.output_text}")
+            result_text = decrypt_text(input_text, key)
+        write_file(args.output_file, result_text)
+        print(f"Operation '{args.mode}' completed successfully. Output saved to '{args.output_file}'.")
+
     except ValueError as e:
         print(f"Error: {e}", file=sys.stderr)
+        sys.exit(1)
+    except Exception as e:
+        print(f"Unexpected error: {e}", file=sys.stderr)
         sys.exit(1)
 
 
