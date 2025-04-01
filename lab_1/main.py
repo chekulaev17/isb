@@ -1,5 +1,5 @@
-import sys
 import argparse
+import sys
 
 from ciph import encrypt_text, decrypt_text, read_file, write_file
 
