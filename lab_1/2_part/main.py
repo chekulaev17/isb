@@ -1,89 +1,122 @@
 import json
+import sys
 
 from collections import OrderedDict, Counter
+from constants import RUSSIAN_FREQ
+
 
 def save_to_json(filename: str, data: dict) -> None:
-    """Сохраняет словарь в JSON-файл."""
+    """
+    Saves a dictionary to a JSON file.
+    :param filename: The name of the file.
+    :param data: The dictionary to save.
+    :return: None
+    """
     try:
         with open(filename, 'w', encoding='utf-8') as file:
             json.dump(data, file, ensure_ascii=False, indent=4)
     except Exception as e:
-        print(f"Ошибка при сохранении в файл '{filename}': {e}")
+        print(f"Error saving to file '{filename}': {e}")
         raise
 
+
 def load_from_json(filename: str) -> dict:
-    """Загружает словарь из JSON-файла."""
+    """
+    Loads a dictionary from a JSON file.
+    :param filename: The name of the file.
+    :return: The loaded dictionary.
+    """
     try:
         with open(filename, 'r', encoding='utf-8') as file:
             return json.load(file)
     except FileNotFoundError:
-        print(f"Файл '{filename}' не найден.")
+        print(f"File '{filename}' not found.")
         raise
     except json.JSONDecodeError:
-        print(f"Ошибка декодирования JSON в файле '{filename}'.")
+        print(f"JSON decoding error in file '{filename}'.")
         raise
 
+
 def calculate_frequency(text: str) -> dict:
-    """Подсчитывает частоту символов в тексте."""
+    """
+    Calculates the frequency of characters in a text.
+    :param text: The input text.
+    :return: A dictionary mapping characters to their frequency.
+    """
     if not text:
-        raise ValueError("Входной текст не может быть пустым.")
+        raise ValueError("Input text cannot be empty.")
     counter = Counter(text)
     total_chars = len(text)
     return {char: round(count / total_chars, 6) for char, count in counter.items()}
 
+
 def sort_frequencies(freq_dict: dict) -> dict:
-    """Сортирует частоты символов по убыванию."""
+    """
+    Sorts character frequencies in descending order.
+    :param freq_dict: The dictionary of character frequencies.
+    :return: An ordered dictionary sorted by frequency.
+    """
     return OrderedDict(sorted(freq_dict.items(), key=lambda x: x[1], reverse=True))
 
+
 def create_decryption_key(encrypted_freq: dict, reference_freq: dict) -> dict:
-    """Создаёт словарь соответствий между зашифрованными и русскими символами."""
+    """
+    Creates a mapping between encrypted and reference characters based on frequency analysis.
+    :param encrypted_freq: The character frequencies in the encrypted text.
+    :param reference_freq: The character frequencies in the reference text.
+    :return: A dictionary mapping encrypted characters to reference characters.
+    """
     if not encrypted_freq or not reference_freq:
-        raise ValueError("Оба словаря частот должны быть не пустыми.")
+        raise ValueError("Both frequency dictionaries must be non-empty.")
     return {enc: rus for (enc, _), (rus, _) in zip(encrypted_freq.items(), reference_freq.items())}
 
+
 def decrypt_text(encrypted_text: str, key: dict) -> str:
-    """Дешифрует текст, используя словарь замен."""
+    """
+    Decrypts text using a character mapping.
+    :param encrypted_text: The encrypted text.
+    :param key: The dictionary mapping encrypted characters to decrypted characters.
+    :return: The decrypted text.
+    """
     if not encrypted_text:
-        raise ValueError("Зашифрованный текст не может быть пустым.")
+        raise ValueError("Encrypted text cannot be empty.")
     if not key:
-        raise ValueError("Словарь соответствий не может быть пустым.")
+        raise ValueError("Decryption key cannot be empty.")
     return ''.join(key.get(char, char) for char in encrypted_text)
 
-def main():
-    import sys
-    from constants import RUSSIAN_FREQ
 
+def main() -> None:
+    """
+    Main function to handle the encryption analysis and decryption process.
+    Reads the encrypted text, calculates frequencies, creates a decryption key, and outputs the decrypted text.
+    """
     try:
         with open('cod19.txt', 'r', encoding='utf-8') as file:
             encrypted_text = file.read()
     except FileNotFoundError:
-        print("Ошибка: Файл 'cod19.txt' не найден!")
+        print("Error: File 'cod19.txt' not found!")
         sys.exit(1)
 
     if not encrypted_text.strip():
-        print("Ошибка: Зашифрованный текст пуст!")
+        print("Error: Encrypted text is empty!")
         sys.exit(1)
-
     encrypted_freq = calculate_frequency(encrypted_text)
     sorted_encrypted_freq = sort_frequencies(encrypted_freq)
     sorted_russian_freq = sort_frequencies(RUSSIAN_FREQ)
     decryption_key = create_decryption_key(sorted_encrypted_freq, sorted_russian_freq)
     decrypted_text = decrypt_text(encrypted_text, decryption_key)
-
     save_to_json('key.json', decryption_key)
-
     try:
         with open('decrypted_text.txt', 'w', encoding='utf-8') as file:
             file.write(decrypted_text)
     except Exception as e:
-        print(f"Ошибка при записи в файл 'decrypted_text.txt': {e}")
-
-    print("Исходный текст (первые 1000 символов зашифрованного текста):")
+        print(f"Error writing to file 'decrypted_text.txt': {e}")
+    print("Original text (first 1000 characters of encrypted text):")
     print(encrypted_text[:1000])
-    print("\nДешифрованный текст (первые 1000 символов):")
+    print("\nDecrypted text (first 1000 characters):")
     print(decrypted_text[:1000])
-    print("\nКлюч соответствий символов:")
-    print(decryption_key)
+    print("\nCharacter mapping key:")
+    print(json.dumps(decryption_key, indent=4, ensure_ascii=False))
 
 
 if __name__ == "__main__":
