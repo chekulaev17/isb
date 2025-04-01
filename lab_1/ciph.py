@@ -1,3 +1,5 @@
+import sys
+
 from const import ALPHABET, ALPHABET_SIZE
 
 
@@ -76,3 +78,39 @@ def vigenere_cipher_decrypt(encrypted_text: str, key: str) -> str:
     if not key:
         raise ValueError("Key cannot be empty.")
         return "".join(get_decrypted_symb(encrypted_text[i], get_key_symb(key, i)) for i in range(len(encrypted_text)))
+
+
+    def read_text(filename: str) -> str:
+        """
+        Reads text from a file.
+        :param filename: The path to the input file.
+        :return: The file content as a string.
+        :raises SystemExit: If the file is not found or another error occurs.
+        """
+        try:
+            with open(filename, 'r', encoding='utf-8') as text:
+                return text.read().strip()
+
+        except FileNotFoundError:
+            print(f"Error: File '{filename}' not found.", file=sys.stderr)
+            sys.exit(1)
+
+        except Exception as e:
+            print(f"Error reading file '{filename}': {e}", file=sys.stderr)
+            sys.exit(1)
+
+
+    def write_text(filename: str, text: str) -> None:
+        """
+        Writes text to a file.
+        :param filename: The path to the output file.
+        :param text: The text to write.
+        :raises SystemExit: If an error occurs while writing to the file.
+        """
+        try:
+            with open(filename, 'w', encoding='utf-8') as file:
+                file.write(text)
+
+        except Exception as e:
+            print(f"Error writing to file '{filename}': {e}", file=sys.stderr)
+            sys.exit(1)
