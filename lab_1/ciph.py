@@ -80,7 +80,7 @@ def vigenere_cipher_decrypt(encrypted_text: str, key: str) -> str:
         return "".join(get_decrypted_symb(encrypted_text[i], get_key_symb(key, i)) for i in range(len(encrypted_text)))
 
 
-    def read_text(filename: str) -> str:
+def read_text(filename: str) -> str:
         """
         Reads text from a file.
         :param filename: The path to the input file.
@@ -94,13 +94,12 @@ def vigenere_cipher_decrypt(encrypted_text: str, key: str) -> str:
         except FileNotFoundError:
             print(f"Error: File '{filename}' not found.", file=sys.stderr)
             sys.exit(1)
-
         except Exception as e:
             print(f"Error reading file '{filename}': {e}", file=sys.stderr)
             sys.exit(1)
 
 
-    def write_text(filename: str, text: str) -> None:
+def write_text(filename: str, text: str) -> None:
         """
         Writes text to a file.
         :param filename: The path to the output file.
