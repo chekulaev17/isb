@@ -3,6 +3,7 @@ import sys
 
 from collections import OrderedDict, Counter
 from constants import RUSSIAN_FREQ
+from config import ENCRYPTED_FILE, DECRYPTED_FILE, KEY_FILE
 
 
 def save_to_json(filename: str, data: dict) -> None:
@@ -98,10 +99,10 @@ def main() -> None:
     Reads the encrypted text, calculates frequencies, creates a decryption key, and outputs the decrypted text.
     """
     try:
-        with open('cod19.txt', 'r', encoding='utf-8') as file:
+        with open(ENCRYPTED_FILE, 'r', encoding='utf-8') as file:
             encrypted_text = file.read()
     except FileNotFoundError:
-        print("Error: File 'cod19.txt' not found!")
+        print(f"Error: File '{ENCRYPTED_FILE}' not found!")
         sys.exit(1)
 
     if not encrypted_text.strip():
@@ -111,8 +112,8 @@ def main() -> None:
     sorted_russian_freq = OrderedDict(sorted(RUSSIAN_FREQ.items(), key=lambda x: x[1], reverse=True))
     decryption_key = create_decryption_key(sorted_encrypted_freq, sorted_russian_freq)
     decrypted_text = decrypt_text(encrypted_text, decryption_key)
-    save_to_json('key.json', decryption_key)
-    save_to_text('decrypted_text.txt', decrypted_text)
+    save_to_json(KEY_FILE, decryption_key)
+    save_to_text(DECRYPTED_FILE, decrypted_text)
     print("Original text (first 1000 characters of encrypted text):")
     print(encrypted_text[:1000])
     print("\nDecrypted text (first 1000 characters):")
