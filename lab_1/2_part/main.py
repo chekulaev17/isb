@@ -20,6 +20,21 @@ def save_to_json(filename: str, data: dict) -> None:
         raise
 
 
+def save_to_text(filename: str, text: str) -> None:
+    """
+    Saves text to a file.
+    :param filename: The name of the file.
+    :param text: The text to save.
+    :return: None
+    """
+    try:
+        with open(filename, 'w', encoding='utf-8') as file:
+            file.write(text)
+    except Exception as e:
+        print(f"Error writing to file '{filename}': {e}")
+        raise
+
+
 def load_from_json(filename: str) -> dict:
     """
     Loads a dictionary from a JSON file.
@@ -97,11 +112,7 @@ def main() -> None:
     decryption_key = create_decryption_key(sorted_encrypted_freq, sorted_russian_freq)
     decrypted_text = decrypt_text(encrypted_text, decryption_key)
     save_to_json('key.json', decryption_key)
-    try:
-        with open('decrypted_text.txt', 'w', encoding='utf-8') as file:
-            file.write(decrypted_text)
-    except Exception as e:
-        print(f"Error writing to file 'decrypted_text.txt': {e}")
+    save_to_text('decrypted_text.txt', decrypted_text)
     print("Original text (first 1000 characters of encrypted text):")
     print(encrypted_text[:1000])
     print("\nDecrypted text (first 1000 characters):")
@@ -112,4 +123,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
