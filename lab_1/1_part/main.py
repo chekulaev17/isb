@@ -1,7 +1,8 @@
 import argparse
 import sys
 
-from ciph import encrypt_text, decrypt_text, read_file, write_file
+from const import ALPHABET, ALPHABET_SIZE
+from ciph import process_text, read_file, write_file
 
 
 def create_parser():
@@ -27,15 +28,20 @@ def main():
     try:
         key = read_file(args.key_file)
         input_text = read_file(args.input_file)
-        if args.mode == 'encrypt':
-            result_text = encrypt_text(input_text, key)
-        else:
-            result_text = decrypt_text(input_text, key)
+
+        if not key:
+            raise ValueError("The encryption key cannot be empty.")
+        if not input_text:
+            raise ValueError("The input text cannot be empty.")
+
+        result_text = process_text(input_text, key, encrypt=(args.mode == 'encrypt'))
         write_file(args.output_file, result_text)
         print(f"Operation '{args.mode}' completed successfully. Output saved to '{args.output_file}'.")
-
     except ValueError as e:
         print(f"Error: {e}", file=sys.stderr)
+        sys.exit(1)
+    except FileNotFoundError as e:
+        print(f"File error: {e}", file=sys.stderr)
         sys.exit(1)
     except Exception as e:
         print(f"Unexpected error: {e}", file=sys.stderr)
