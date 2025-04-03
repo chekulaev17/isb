@@ -104,16 +104,26 @@ def main() -> None:
     except FileNotFoundError:
         print(f"Error: File '{ENCRYPTED_FILE}' not found!")
         sys.exit(1)
-
     if not encrypted_text.strip():
         print("Error: Encrypted text is empty!")
         sys.exit(1)
-    sorted_encrypted_freq = calculate_frequency(encrypted_text)
-    sorted_russian_freq = OrderedDict(sorted(RUSSIAN_FREQ.items(), key=lambda x: x[1], reverse=True))
-    decryption_key = create_decryption_key(sorted_encrypted_freq, sorted_russian_freq)
-    decrypted_text = decrypt_text(encrypted_text, decryption_key)
-    save_to_json(KEY_FILE, decryption_key)
-    save_to_text(DECRYPTED_FILE, decrypted_text)
+    try:
+        sorted_encrypted_freq = calculate_frequency(encrypted_text)
+        sorted_russian_freq = OrderedDict(sorted(RUSSIAN_FREQ.items(), key=lambda x: x[1], reverse=True))
+        decryption_key = create_decryption_key(sorted_encrypted_freq, sorted_russian_freq)
+        decrypted_text = decrypt_text(encrypted_text, decryption_key)
+    except ValueError as ve:
+        print(f"Error: {ve}")
+        sys.exit(1)
+    except Exception as e:
+        print(f"Unexpected error during decryption: {e}")
+        sys.exit(1)
+    try:
+        save_to_json(KEY_FILE, decryption_key)
+        save_to_text(DECRYPTED_FILE, decrypted_text)
+    except Exception as e:
+        print(f"Error during saving files: {e}")
+        sys.exit(1)
     print("Original text (first 1000 characters of encrypted text):")
     print(encrypted_text[:1000])
     print("\nDecrypted text (first 1000 characters):")
