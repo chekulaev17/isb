@@ -39,23 +39,15 @@ def load_from_json(filename: str) -> dict:
 
 def calculate_frequency(text: str) -> dict:
     """
-    Calculates the frequency of characters in a text.
+    Calculates and sorts the frequency of characters in a text.
     :param text: The input text.
-    :return: A dictionary mapping characters to their frequency.
+    :return: An ordered dictionary mapping characters to their frequency, sorted in descending order.
     """
     if not text:
         raise ValueError("Input text cannot be empty.")
     counter = Counter(text)
     total_chars = len(text)
-    return {char: round(count / total_chars, 6) for char, count in counter.items()}
-
-
-def sort_frequencies(freq_dict: dict) -> dict:
-    """
-    Sorts character frequencies in descending order.
-    :param freq_dict: The dictionary of character frequencies.
-    :return: An ordered dictionary sorted by frequency.
-    """
+    freq_dict = {char: round(count / total_chars, 6) for char, count in counter.items()}
     return OrderedDict(sorted(freq_dict.items(), key=lambda x: x[1], reverse=True))
 
 
@@ -100,9 +92,8 @@ def main() -> None:
     if not encrypted_text.strip():
         print("Error: Encrypted text is empty!")
         sys.exit(1)
-    encrypted_freq = calculate_frequency(encrypted_text)
-    sorted_encrypted_freq = sort_frequencies(encrypted_freq)
-    sorted_russian_freq = sort_frequencies(RUSSIAN_FREQ)
+    sorted_encrypted_freq = calculate_frequency(encrypted_text)
+    sorted_russian_freq = OrderedDict(sorted(RUSSIAN_FREQ.items(), key=lambda x: x[1], reverse=True))
     decryption_key = create_decryption_key(sorted_encrypted_freq, sorted_russian_freq)
     decrypted_text = decrypt_text(encrypted_text, decryption_key)
     save_to_json('key.json', decryption_key)
