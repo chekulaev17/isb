@@ -13,6 +13,7 @@ def get_key_character(key: str, position: int) -> str:
     """
     if not key:
         raise ValueError("The encryption key cannot be empty.")
+
     return key[position % len(key)]
 
 
@@ -29,6 +30,7 @@ def shift_character(char: str, key_char: str, encrypt: bool = True) -> str:
         key_index = ALPHABET.index(key_char.lower())
         new_index = (text_index + key_index) % ALPHABET_SIZE if encrypt else (text_index - key_index) % ALPHABET_SIZE
         return ALPHABET[new_index].upper() if char.isupper() else ALPHABET[new_index]
+
     except ValueError:
         return char
 
@@ -44,9 +46,32 @@ def process_text(text: str, key: str, encrypt: bool = True) -> str:
     """
     if not text:
         raise ValueError("The input text cannot be empty.")
+
     if not key:
         raise ValueError("The encryption key cannot be empty.")
+
     return "".join(shift_character(text[i], get_key_character(key, i), encrypt) for i in range(len(text)))
+
+
+def encrypt_text(plaintext: str, key: str) -> str:
+    """
+    Encrypts plaintext using the modified Trithemius cipher.
+    :param plaintext: The text to encrypt.
+    :param key: The encryption key.
+    :return: The encrypted text.
+    """
+    return process_text(plaintext, key, encrypt=True)
+
+
+def decrypt_text(ciphertext: str, key: str) -> str:
+    """
+    Decrypts ciphertext using the modified Trithemius cipher.
+
+    :param ciphertext: The text to decrypt.
+    :param key: The decryption key.
+    :return: The decrypted text.
+    """
+    return process_text(ciphertext, key, encrypt=False)
 
 
 def read_file(file_path: str) -> str:
