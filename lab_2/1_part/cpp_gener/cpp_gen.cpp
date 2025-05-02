@@ -2,6 +2,7 @@
 #include <string>
 #include <cstdlib>
 #include <ctime>
+#include <iostream>
 
 void writeSequence(const char* filepath, const std::string& data) {
     std::ofstream output(filepath);
@@ -29,7 +30,15 @@ int main() {
     const std::string filename = "cpp_seq.txt";
 
     auto sequence = generateBinarySequence(sequenceLength);
+
+    // Выводим последовательность на экран
+    std::cout << "Generated binary sequence: " << sequence << std::endl;
+
+    // Записываем последовательность в файл
     writeSequence(filename.c_str(), sequence);
+
+    // Выводим сообщение о завершении
+    std::cout << "Random binary sequence generated and saved to " << filename << std::endl;
 
     return 0;
 }
