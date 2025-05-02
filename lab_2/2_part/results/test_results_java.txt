@@ -1,0 +1,7 @@
+Java Sequence Test Results
+------------------------------
+Length: 128 bits
+
+1) Monobit P-value:             0.479500
+2) Runs P-value:                0.894112
+3) Longest Run P-value:         0.110604
