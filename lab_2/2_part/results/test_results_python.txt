@@ -1,7 +1,6 @@
 Python Sequence Test Results
 ------------------------------
 Length: 128 bits
-
 1) Monobit P-value:             0.376759
 2) Runs P-value:                0.804645
 3) Longest Run P-value:         0.355786

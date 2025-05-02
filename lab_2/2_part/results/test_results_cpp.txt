@@ -1,7 +1,6 @@
 C++ Sequence Test Results
 ------------------------------
 Length: 128 bits
-
 1) Monobit P-value:             0.288844
 2) Runs P-value:                0.132381
 3) Longest Run P-value:         0.989400
