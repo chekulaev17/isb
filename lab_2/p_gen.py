@@ -1,5 +1,6 @@
 import random
 
+
 try:
     seq = format(random.getrandbits(128), '0128b')
     with open('p_seq.txt', 'w') as f:
