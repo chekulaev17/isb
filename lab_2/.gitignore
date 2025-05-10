@@ -1,0 +1,12 @@
+# create# Ignore Visual Studio files
+        #.vs/
+        #*.vspscc
+        #*.vssscc
+        #*.user
+        #*.userosscache
+        #*.suo
+        #*.userprefs
+        #*.dbd by virtualenv automatically
+   .idea/
+lab_1/
+
