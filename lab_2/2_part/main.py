@@ -1,6 +1,7 @@
 import argparse
 import math
 import os
+import sys
 
 from scipy.special import gammainc
 
@@ -17,9 +18,13 @@ def ensure_dirs_exist():
     Create result dirs if needed.
     :return: None
     """
-    os.makedirs(os.path.dirname(TEST_RESULTS_CPP), exist_ok=True)
-    os.makedirs(os.path.dirname(TEST_RESULTS_JAVA), exist_ok=True)
-    os.makedirs(os.path.dirname(TEST_RESULTS_PYTHON), exist_ok=True)
+    try:
+        os.makedirs(os.path.dirname(TEST_RESULTS_CPP), exist_ok=True)
+        os.makedirs(os.path.dirname(TEST_RESULTS_JAVA), exist_ok=True)
+        os.makedirs(os.path.dirname(TEST_RESULTS_PYTHON), exist_ok=True)
+    except OSError as e:
+        print(f"Error creating result directories: {e}")
+        sys.exit(1)
 
 
 def read_sequence(path):
@@ -31,7 +36,7 @@ def read_sequence(path):
     try:
         with open(path, 'r', encoding='utf-8') as f:
             return f.read().strip()
-    except IOError as e:
+    except (IOError, OSError) as e:
         print(f"Error reading {path}: {e}")
         return ""
 
@@ -46,7 +51,7 @@ def write_result(path, text):
     try:
         with open(path, 'w', encoding='utf-8') as f:
             f.write(text)
-    except IOError as e:
+    except (IOError, OSError) as e:
         print(f"Error writing {path}: {e}")
 
 
@@ -59,10 +64,14 @@ def monobit_test(seq):
     n = len(seq)
     if n == 0:
         return 0.0
-    ones = seq.count('1')
-    zeros = n - ones
-    s = abs(ones - zeros)
-    return math.erfc(s / math.sqrt(2 * n))
+    try:
+        ones = seq.count('1')
+        zeros = n - ones
+        s = abs(ones - zeros)
+        return math.erfc(s / math.sqrt(2 * n))
+    except (ZeroDivisionError, ValueError) as e:
+        print(f"Error in monobit_test: {e}")
+        return 0.0
 
 
 def runs_test(seq):
@@ -74,13 +83,17 @@ def runs_test(seq):
     n = len(seq)
     if n < 2:
         return 0.0
-    pi = seq.count('1') / n
-    if abs(pi - 0.5) >= 2 / math.sqrt(n):
+    try:
+        pi = seq.count('1') / n
+        if abs(pi - 0.5) >= 2 / math.sqrt(n):
+            return 0.0
+        runs = sum(1 for i in range(1, n) if seq[i] != seq[i - 1])
+        num = abs(runs - 2 * n * pi * (1 - pi))
+        den = 2 * math.sqrt(2 * n) * pi * (1 - pi)
+        return math.erfc(num / den)
+    except (ZeroDivisionError, ValueError) as e:
+        print(f"Error in runs_test: {e}")
         return 0.0
-    runs = sum(1 for i in range(1, n) if seq[i] != seq[i - 1])
-    num = abs(runs - 2 * n * pi * (1 - pi))
-    den = 2 * math.sqrt(2 * n) * pi * (1 - pi)
-    return math.erfc(num / den)
 
 
 def longest_run_test(seq):
@@ -93,26 +106,30 @@ def longest_run_test(seq):
     n = len(seq)
     if n < 128:
         raise ValueError("Sequence must be ≥128 bits.")
-    counts = [0, 0, 0, 0]
-    for i in range(n // 8):
-        block = seq[i*8:(i+1)*8]
-        max_run = cur = 0
-        for b in block:
-            if b == '1':
-                cur += 1
-                max_run = max(max_run, cur)
+    try:
+        counts = [0, 0, 0, 0]
+        for i in range(n // 8):
+            block = seq[i * 8:(i + 1) * 8]
+            max_run = cur = 0
+            for b in block:
+                if b == '1':
+                    cur += 1
+                    max_run = max(max_run, cur)
+                else:
+                    cur = 0
+            if max_run <= 1:
+                counts[0] += 1
+            elif max_run == 2:
+                counts[1] += 1
+            elif max_run == 3:
+                counts[2] += 1
             else:
-                cur = 0
-        if max_run <= 1:
-            counts[0] += 1
-        elif max_run == 2:
-            counts[1] += 1
-        elif max_run == 3:
-            counts[2] += 1
-        else:
-            counts[3] += 1
-    chi2 = sum((counts[i] - 16 * PI[i])**2 / (16 * PI[i]) for i in range(4))
-    return gammainc(1.5, chi2 / 2)
+                counts[3] += 1
+        chi2 = sum((counts[i] - 16 * PI[i]) ** 2 / (16 * PI[i]) for i in range(4))
+        return gammainc(1.5, chi2 / 2)
+    except (ZeroDivisionError, ValueError, OverflowError) as e:
+        print(f"Error in longest_run_test: {e}")
+        return 0.0
 
 
 def run_all(label, seq_path, result_path):
@@ -125,6 +142,7 @@ def run_all(label, seq_path, result_path):
     """
     seq = read_sequence(seq_path)
     if not seq:
+        print(f"{label}: Empty or invalid sequence file.")
         return
     try:
         p1 = monobit_test(seq)
@@ -149,31 +167,21 @@ def main():
     Main entry point.
     :return: None
     """
-    parser = argparse.ArgumentParser(description="Run NIST tests on binary sequences.")
-    parser.add_argument(
-        "--cpp",
-        metavar="FILE",
-        required=True,
-        help="path to C++ sequence file (required)",
-    )
-    parser.add_argument(
-        "--java",
-        metavar="FILE",
-        required=True,
-        help="path to Java sequence file (required)",
-    )
-    parser.add_argument(
-        "--python",
-        metavar="FILE",
-        required=True,
-        help="path to Python sequence file (required)",
-    )
-    args = parser.parse_args()
+    try:
+        parser = argparse.ArgumentParser(description="Run NIST tests on binary sequences.")
+        parser.add_argument("--cpp", metavar="FILE", required=True, help="path to C++ sequence file (required)")
+        parser.add_argument("--java", metavar="FILE", required=True, help="path to Java sequence file (required)")
+        parser.add_argument("--python", metavar="FILE", required=True, help="path to Python sequence file (required)")
+        args = parser.parse_args()
 
-    ensure_dirs_exist()
-    run_all("C++", args.cpp, TEST_RESULTS_CPP)
-    run_all("Java", args.java, TEST_RESULTS_JAVA)
-    run_all("Python", args.python, TEST_RESULTS_PYTHON)
+        ensure_dirs_exist()
+        run_all("C++", args.cpp, TEST_RESULTS_CPP)
+        run_all("Java", args.java, TEST_RESULTS_JAVA)
+        run_all("Python", args.python, TEST_RESULTS_PYTHON)
+
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
+        sys.exit(1)
 
 
 if __name__ == "__main__":
