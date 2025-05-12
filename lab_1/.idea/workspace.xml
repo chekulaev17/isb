@@ -1,33 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5ab0c399-7bdf-42c0-97ed-85ced5b0f27d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../lab_2/.idea/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/lab_1.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../lab_2/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vs/ProjectSettings.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vs/VSWorkspaceState.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vs/lab_1/FileContentIndex/6f25267e-d168-4657-8d9c-1facf2ffb676.vsidx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vs/lab_1/v17/.wsuo" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vs/slnx.sqlite" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/1_part/ciph.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/1_part/const.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/1_part/input.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/1_part/main.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/2_part/cod19.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/2_part/config.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/2_part/constants.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/2_part/decrypted.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/2_part/key.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/2_part/main.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lab_2/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../lab_2/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lab_2/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../lab_2/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="5ab0c399-7bdf-42c0-97ed-85ced5b0f27d" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -36,10 +10,10 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 8
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 8
+}</component>
   <component name="ProjectId" id="2wzB9QG3ZznX27AK6fWpKS2SX1J" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -49,7 +23,7 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Merging lab2-var19"
+    "git-widget-placeholder": "lab2-var19"
   }
 }]]></component>
   <component name="SharedIndexes">
