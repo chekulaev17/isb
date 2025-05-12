@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="797c871a-1bfc-4d58-8981-3a87a18c0748" name="Changes" comment="delete" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="lab_2" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="QODANA_PROBLEMS_VIEW_TAB" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
+  <component name="ProjectId" id="2wXgBxAtwBO8SBhU1H31yuGBjna" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/MSI/Desktop/isb/lab_2"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\MSI\Desktop\isb\lab_2" />
+      <recent name="C:\Users\MSI\Desktop\isb\lab_2\1_part\python" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-09665e90c3a7-d3b881c8e49f-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-233.15026.15" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="797c871a-1bfc-4d58-8981-3a87a18c0748" name="Changes" comment="" />
+      <created>1746193200711</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1746193200711</updated>
+    </task>
+    <task id="LOCAL-00001" summary="build: add python sequence generation">
+      <option name="closed" value="true" />
+      <created>1746194057658</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1746194057658</updated>
+    </task>
+    <task id="LOCAL-00002" summary="build: add python sequence generation">
+      <option name="closed" value="true" />
+      <created>1746194211650</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1746194211650</updated>
+    </task>
+    <task id="LOCAL-00003" summary="build: add python sequence generation">
+      <option name="closed" value="true" />
+      <created>1746194240544</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1746194240544</updated>
+    </task>
+    <task id="LOCAL-00004" summary="add sequences files">
+      <option name="closed" value="true" />
+      <created>1746201632014</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1746201632014</updated>
+    </task>
+    <task id="LOCAL-00005" summary="add sequences files">
+      <option name="closed" value="true" />
+      <created>1746203052430</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1746203052430</updated>
+    </task>
+    <task id="LOCAL-00006" summary="add sequences files">
+      <option name="closed" value="true" />
+      <created>1746203582265</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1746203582265</updated>
+    </task>
+    <task id="LOCAL-00007" summary="1">
+      <option name="closed" value="true" />
+      <created>1746204906047</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1746204906047</updated>
+    </task>
+    <task id="LOCAL-00008" summary="1">
+      <option name="closed" value="true" />
+      <created>1746206552624</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1746206552624</updated>
+    </task>
+    <task id="LOCAL-00009" summary="add java generation sequence">
+      <option name="closed" value="true" />
+      <created>1746206909057</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1746206909057</updated>
+    </task>
+    <task id="LOCAL-00010" summary="add file for 2 part">
+      <option name="closed" value="true" />
+      <created>1746207503806</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1746207503806</updated>
+    </task>
+    <task id="LOCAL-00011" summary="build: add consts">
+      <option name="closed" value="true" />
+      <created>1746211226063</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1746211226063</updated>
+    </task>
+    <task id="LOCAL-00012" summary="fix: cpp code">
+      <option name="closed" value="true" />
+      <created>1746211574764</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1746211574764</updated>
+    </task>
+    <task id="LOCAL-00013" summary="feat: add the main function">
+      <option name="closed" value="true" />
+      <created>1746211699165</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1746211699165</updated>
+    </task>
+    <task id="LOCAL-00014" summary="fix: delete trash">
+      <option name="closed" value="true" />
+      <created>1746211796783</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1746211796783</updated>
+    </task>
+    <task id="LOCAL-00015" summary="delete trash">
+      <option name="closed" value="true" />
+      <created>1746213224539</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1746213224539</updated>
+    </task>
+    <task id="LOCAL-00016" summary="delete trash">
+      <option name="closed" value="true" />
+      <created>1746215865477</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1746215865477</updated>
+    </task>
+    <task id="LOCAL-00017" summary="delete trash">
+      <option name="closed" value="true" />
+      <created>1746908264103</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1746908264103</updated>
+    </task>
+    <task id="LOCAL-00018" summary="delete trash">
+      <option name="closed" value="true" />
+      <created>1746908414094</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1746908414094</updated>
+    </task>
+    <task id="LOCAL-00019" summary="delete trash">
+      <option name="closed" value="true" />
+      <created>1746908677702</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1746908677702</updated>
+    </task>
+    <task id="LOCAL-00020" summary="delete trash">
+      <option name="closed" value="true" />
+      <created>1747029075472</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1747029075472</updated>
+    </task>
+    <task id="LOCAL-00021" summary="delete trash">
+      <option name="closed" value="true" />
+      <created>1747029472343</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1747029472343</updated>
+    </task>
+    <task id="LOCAL-00022" summary="delete trash">
+      <option name="closed" value="true" />
+      <created>1747029665780</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1747029665780</updated>
+    </task>
+    <task id="LOCAL-00023" summary="delete trash">
+      <option name="closed" value="true" />
+      <created>1747030566476</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1747030566476</updated>
+    </task>
+    <task id="LOCAL-00024" summary="delete trash">
+      <option name="closed" value="true" />
+      <created>1747030572806</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1747030572806</updated>
+    </task>
+    <task id="LOCAL-00025" summary="delete trash">
+      <option name="closed" value="true" />
+      <created>1747030751895</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1747030751895</updated>
+    </task>
+    <task id="LOCAL-00026" summary="delete trash">
+      <option name="closed" value="true" />
+      <created>1747031367796</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1747031367796</updated>
+    </task>
+    <task id="LOCAL-00027" summary="delete">
+      <option name="closed" value="true" />
+      <created>1747031483775</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1747031483775</updated>
+    </task>
+    <task id="LOCAL-00028" summary="delete">
+      <option name="closed" value="true" />
+      <created>1747031617994</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1747031617994</updated>
+    </task>
+    <task id="LOCAL-00029" summary="delete">
+      <option name="closed" value="true" />
+      <created>1747031649559</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1747031649559</updated>
+    </task>
+    <task id="LOCAL-00030" summary="delete">
+      <option name="closed" value="true" />
+      <created>1747031765634</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1747031765634</updated>
+    </task>
+    <task id="LOCAL-00031" summary="delete">
+      <option name="closed" value="true" />
+      <created>1747031879583</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1747031879583</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="lab2-var19" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="build : python sequence generation" />
+    <MESSAGE value="perf: add exception handler" />
+    <MESSAGE value="build: add python sequence generation" />
+    <MESSAGE value="add sequences files" />
+    <MESSAGE value="1" />
+    <MESSAGE value="add java generation sequence" />
+    <MESSAGE value="add file for 2 part" />
+    <MESSAGE value="build: add consts" />
+    <MESSAGE value="fix: cpp code" />
+    <MESSAGE value="feat: add the main function" />
+    <MESSAGE value="fix: delete trash" />
+    <MESSAGE value="delete trash" />
+    <MESSAGE value="delete" />
+    <option name="LAST_COMMIT_MESSAGE" value="delete" />
+  </component>
+</project>
