@@ -7,7 +7,7 @@
         #*.suo
         #*.userprefs
         #*.dbd by virtualenv automatically
-# Ignore lab1 and .idea
+
 lab_1/
 .idea/
 
