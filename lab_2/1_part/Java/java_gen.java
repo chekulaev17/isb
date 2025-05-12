@@ -1,5 +1,6 @@
 import java.util.Random;
 
+
 public class RandomBinary128 {
     public static void main(String[] args) {
 
