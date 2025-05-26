@@ -1,0 +1,13 @@
+{
+    "key_settings": {
+        "encrypted_symmetric_key": "keys/encrypted_sym_key.bin",
+        "public_key": "keys/public_key.pem",
+        "private_key": "keys/private_key.pem"
+    },
+    "encryption_settings": {
+        "default_input": "data/input.txt",
+        "default_encrypted": "data/encrypted.bin",
+        "default_decrypted": "data/decrypted.txt"
+    },
+    "aes_key_size": 256
+}
