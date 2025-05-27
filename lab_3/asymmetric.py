@@ -20,7 +20,7 @@ class AsymmetricCrypto:
         public_key = private_key.public_key()
         return private_key, public_key
 
-    @staticmethod
+
     def encrypt_with_public_key(data: bytes, public_key) -> bytes:
         """
         Encrypt data using an RSA public key.
@@ -41,7 +41,7 @@ class AsymmetricCrypto:
         except Exception as e:
             raise RuntimeError(f"Encryption with public key failed: {str(e)}")
 
-    @staticmethod
+
     def decrypt_with_private_key(encrypted_data: bytes, private_key) -> bytes:
         """
         Decrypt data using an RSA private key.
@@ -62,7 +62,7 @@ class AsymmetricCrypto:
         except Exception as e:
             raise RuntimeError(f"Decryption with private key failed: {str(e)}")
 
-    @staticmethod
+
     def save_private_key(private_key, file_path: str):
         """
         Save the private key to a file.
@@ -82,7 +82,7 @@ class AsymmetricCrypto:
         except Exception as e:
             raise RuntimeError(f"Saving private key failed: {str(e)}")
 
-    @staticmethod
+
     def save_public_key(public_key, file_path: str):
         """
         Save the public key to a file.
@@ -101,7 +101,7 @@ class AsymmetricCrypto:
         except Exception as e:
             raise RuntimeError(f"Saving public key failed: {str(e)}")
 
-    @staticmethod
+
     def load_private_key(file_path: str):
         """
         Load the private key from a file.
@@ -119,7 +119,7 @@ class AsymmetricCrypto:
         except Exception as e:
             raise RuntimeError(f"Loading private key failed: {str(e)}")
 
-    @staticmethod
+
     def load_public_key(file_path: str):
         """
         Load the public key from a file.

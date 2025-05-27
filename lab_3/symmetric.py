@@ -7,7 +7,7 @@ from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 
 class SymmetricCrypto:
 
-    @staticmethod
+
     def generate_key(key_size: int = 256) -> bytes:
         """
         Generate a symmetric AES key.
@@ -19,7 +19,7 @@ class SymmetricCrypto:
             raise ValueError("Invalid key size. Allowed values: 128, 192, 256 bits")
         return os.urandom(key_size // 8)
 
-    @staticmethod
+
     def pad_data(data: bytes) -> bytes:
         """
         Apply PKCS7 padding to data before encryption.
@@ -41,7 +41,7 @@ class SymmetricCrypto:
         unpadder = padding.PKCS7(128).unpadder()
         return unpadder.update(padded_data) + unpadder.finalize()
 
-    @staticmethod
+
     def encrypt(data: bytes, key: bytes) -> bytes:
         """
         Encrypt data using AES in CBC mode.
@@ -60,7 +60,7 @@ class SymmetricCrypto:
         except Exception as e:
             raise RuntimeError(f"Encryption failed: {str(e)}")
 
-    @staticmethod
+
     def decrypt(encrypted_data: bytes, key: bytes) -> bytes:
         """
         Decrypt data using AES in CBC mode.

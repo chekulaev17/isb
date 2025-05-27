@@ -3,7 +3,7 @@ import os
 
 class FileUtils:
 
-    @staticmethod
+
     def read_file(file_path: str) -> bytes:
         """
         Read data from a file.
@@ -17,7 +17,7 @@ class FileUtils:
         except Exception as e:
             raise RuntimeError(f"Reading file failed: {str(e)}")
 
-    @staticmethod
+
     def write_file(file_path: str, data: bytes):
         """
         Write data to a file.
