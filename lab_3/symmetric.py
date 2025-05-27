@@ -5,6 +5,7 @@ import os
 
 class SymmetricCrypto:
 
+    @staticmethod
     def generate_key(key_size: int = 256) -> bytes:
         """Генерация симметричного ключа для AES"""
         if key_size not in [128, 192, 256]:
