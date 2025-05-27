@@ -1,5 +1,6 @@
 import os
 
+
 class FileUtils:
     @staticmethod
     def read_file(file_path: str) -> bytes:
