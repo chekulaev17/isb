@@ -1,5 +1,5 @@
 from cryptography.hazmat.backends import default_backend
-from cryptography.hazmat.primitives import hashes, serialization
+from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.asymmetric import padding as asym_padding, rsa
 
 
@@ -10,7 +10,7 @@ class AsymmetricCrypto:
         """
         Generate an RSA private-public key pair.
 
-        :return: Tuple containing (private_key, public_key)
+        :return: Tuple (private_key, public_key)
         """
         private_key = rsa.generate_private_key(
             public_exponent=65537,
@@ -20,7 +20,7 @@ class AsymmetricCrypto:
         public_key = private_key.public_key()
         return private_key, public_key
 
-
+    @staticmethod
     def encrypt_with_public_key(data: bytes, public_key) -> bytes:
         """
         Encrypt data using an RSA public key.
@@ -41,7 +41,7 @@ class AsymmetricCrypto:
         except Exception as e:
             raise RuntimeError(f"Encryption with public key failed: {str(e)}")
 
-
+    @staticmethod
     def decrypt_with_private_key(encrypted_data: bytes, private_key) -> bytes:
         """
         Decrypt data using an RSA private key.
@@ -61,77 +61,3 @@ class AsymmetricCrypto:
             )
         except Exception as e:
             raise RuntimeError(f"Decryption with private key failed: {str(e)}")
-
-
-    def save_private_key(private_key, file_path: str):
-        """
-        Save the private key to a file.
-
-        :param private_key: RSA private key object
-        :param file_path: Destination file path
-        """
-        try:
-            with open(file_path, 'wb') as f:
-                f.write(
-                    private_key.private_bytes(
-                        encoding=serialization.Encoding.PEM,
-                        format=serialization.PrivateFormat.PKCS8,
-                        encryption_algorithm=serialization.NoEncryption()
-                    )
-                )
-        except Exception as e:
-            raise RuntimeError(f"Saving private key failed: {str(e)}")
-
-
-    def save_public_key(public_key, file_path: str):
-        """
-        Save the public key to a file.
-
-        :param public_key: RSA public key object
-        :param file_path: Destination file path
-        """
-        try:
-            with open(file_path, 'wb') as f:
-                f.write(
-                    public_key.public_bytes(
-                        encoding=serialization.Encoding.PEM,
-                        format=serialization.PublicFormat.SubjectPublicKeyInfo
-                    )
-                )
-        except Exception as e:
-            raise RuntimeError(f"Saving public key failed: {str(e)}")
-
-
-    def load_private_key(file_path: str):
-        """
-        Load the private key from a file.
-
-        :param file_path: Path to the private key file
-        :return: RSA private key object
-        """
-        try:
-            with open(file_path, 'rb') as f:
-                return serialization.load_pem_private_key(
-                    f.read(),
-                    password=None,
-                    backend=default_backend()
-                )
-        except Exception as e:
-            raise RuntimeError(f"Loading private key failed: {str(e)}")
-
-
-    def load_public_key(file_path: str):
-        """
-        Load the public key from a file.
-
-        :param file_path: Path to the public key file
-        :return: RSA public key object
-        """
-        try:
-            with open(file_path, 'rb') as f:
-                return serialization.load_pem_public_key(
-                    f.read(),
-                    backend=default_backend()
-                )
-        except Exception as e:
-            raise RuntimeError(f"Loading public key failed: {str(e)}")
