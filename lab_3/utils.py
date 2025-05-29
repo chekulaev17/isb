@@ -20,7 +20,6 @@ def handle_key_generation(config: dict):
     key_settings = config['key_settings']
     sym_key = generate_symmetric_key(config['aes_key_size'])
     private_key, public_key = AsymmetricCrypto.generate_keys()
-
     AsymmetricCrypto.save_public_key(public_key, key_settings['public_key'], write_file)
     AsymmetricCrypto.save_private_key(private_key, key_settings['private_key'], write_file)
 
