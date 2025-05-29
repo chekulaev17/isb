@@ -1,17 +1,12 @@
 from cryptography.hazmat.backends import default_backend
-from cryptography.hazmat.primitives import hashes
+from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import padding as asym_padding, rsa
 
 
 class AsymmetricCrypto:
 
     @staticmethod
-    def generate_keys() -> tuple:
-        """
-        Generate an RSA private-public key pair.
-
-        :return: Tuple (private_key, public_key)
-        """
+    def generate_keys():
         private_key = rsa.generate_private_key(
             public_exponent=65537,
             key_size=2048,
@@ -22,42 +17,54 @@ class AsymmetricCrypto:
 
     @staticmethod
     def encrypt_with_public_key(data: bytes, public_key) -> bytes:
-        """
-        Encrypt data using an RSA public key.
-
-        :param data: Data to encrypt as bytes
-        :param public_key: RSA public key object
-        :return: Encrypted data as bytes
-        """
-        try:
-            return public_key.encrypt(
-                data,
-                asym_padding.OAEP(
-                    mgf=asym_padding.MGF1(algorithm=hashes.SHA256()),
-                    algorithm=hashes.SHA256(),
-                    label=None
-                )
+        return public_key.encrypt(
+            data,
+            asym_padding.OAEP(
+                mgf=asym_padding.MGF1(algorithm=hashes.SHA256()),
+                algorithm=hashes.SHA256(),
+                label=None
             )
-        except Exception as e:
-            raise RuntimeError(f"Encryption with public key failed: {str(e)}")
+        )
 
     @staticmethod
     def decrypt_with_private_key(encrypted_data: bytes, private_key) -> bytes:
-        """
-        Decrypt data using an RSA private key.
-
-        :param encrypted_data: Encrypted data as bytes
-        :param private_key: RSA private key object
-        :return: Decrypted original data as bytes
-        """
-        try:
-            return private_key.decrypt(
-                encrypted_data,
-                asym_padding.OAEP(
-                    mgf=asym_padding.MGF1(algorithm=hashes.SHA256()),
-                    algorithm=hashes.SHA256(),
-                    label=None
-                )
+        return private_key.decrypt(
+            encrypted_data,
+            asym_padding.OAEP(
+                mgf=asym_padding.MGF1(algorithm=hashes.SHA256()),
+                algorithm=hashes.SHA256(),
+                label=None
             )
-        except Exception as e:
-            raise RuntimeError(f"Decryption with private key failed: {str(e)}")
+        )
+
+    @staticmethod
+    def save_private_key(private_key, file_path: str, write_func):
+        pem = private_key.private_bytes(
+            encoding=serialization.Encoding.PEM,
+            format=serialization.PrivateFormat.PKCS8,
+            encryption_algorithm=serialization.NoEncryption()
+        )
+        write_func(file_path, pem)
+
+    @staticmethod
+    def save_public_key(public_key, file_path: str, write_func):
+        pem = public_key.public_bytes(
+            encoding=serialization.Encoding.PEM,
+            format=serialization.PublicFormat.SubjectPublicKeyInfo
+        )
+        write_func(file_path, pem)
+
+    @staticmethod
+    def load_private_key(file_path: str, read_func):
+        return serialization.load_pem_private_key(
+            read_func(file_path),
+            password=None,
+            backend=default_backend()
+        )
+
+    @staticmethod
+    def load_public_key(file_path: str, read_func):
+        return serialization.load_pem_public_key(
+            read_func(file_path),
+            backend=default_backend()
+        )
