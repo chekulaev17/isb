@@ -22,7 +22,6 @@ def handle_key_generation(config: dict):
     private_key, public_key = AsymmetricCrypto.generate_keys()
     AsymmetricCrypto.save_public_key(public_key, key_settings['public_key'], write_file)
     AsymmetricCrypto.save_private_key(private_key, key_settings['private_key'], write_file)
-
     encrypted_sym_key = AsymmetricCrypto.encrypt_with_public_key(sym_key, public_key)
     write_file(key_settings['encrypted_symmetric_key'], encrypted_sym_key)
     print("Keys successfully generated!")
