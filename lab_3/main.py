@@ -5,37 +5,44 @@ from symmetric import encrypt_data, decrypt_data
 
 
 def main():
-    config = load_config()
+    """
+    Main entry point: parse CLI arguments and run appropriate mode.
+    """
+    try:
+        config = load_config()
 
-    parser = argparse.ArgumentParser(description="Hybrid Crypto System (AES + RSA)")
-    subparsers = parser.add_subparsers(dest='command', required=True)
+        parser = argparse.ArgumentParser(description="Hybrid Crypto System (AES + RSA)")
+        subparsers = parser.add_subparsers(dest='command', required=True)
 
-    subparsers.add_parser('gen', help='Generate keys')
+        subparsers.add_parser('gen', help='Generate keys')
 
-    enc_parser = subparsers.add_parser('enc', help='Encrypt a file')
-    enc_parser.add_argument('-i', '--input', help='Path to the file to encrypt',
-                            default=config['encryption_settings']['default_input'])
+        enc_parser = subparsers.add_parser('enc', help='Encrypt a file')
+        enc_parser.add_argument('-i', '--input', help='Path to the file to encrypt',
+                                default=config['encryption_settings']['default_input'])
 
-    dec_parser = subparsers.add_parser('dec', help='Decrypt a file')
-    dec_parser.add_argument('-i', '--input', help='Path to the encrypted file',
-                            default=config['encryption_settings']['default_encrypted'])
+        dec_parser = subparsers.add_parser('dec', help='Decrypt a file')
+        dec_parser.add_argument('-i', '--input', help='Path to the encrypted file',
+                                default=config['encryption_settings']['default_encrypted'])
 
-    args = parser.parse_args()
+        args = parser.parse_args()
 
-    if args.command == 'gen':
-        handle_key_generation(config)
-    elif args.command == 'enc':
-        sym_key = get_symmetric_key(config)
-        plaintext = read_file(args.input)
-        ciphertext = encrypt_data(plaintext, sym_key)
-        write_file(config['encryption_settings']['default_encrypted'], ciphertext)
-        print(f"File encrypted and saved as {config['encryption_settings']['default_encrypted']}")
-    elif args.command == 'dec':
-        sym_key = get_symmetric_key(config)
-        ciphertext = read_file(args.input)
-        plaintext = decrypt_data(ciphertext, sym_key)
-        write_file(config['encryption_settings']['default_decrypted'], plaintext)
-        print(f"File decrypted and saved as {config['encryption_settings']['default_decrypted']}")
+        if args.command == 'gen':
+            handle_key_generation(config)
+        elif args.command == 'enc':
+            sym_key = get_symmetric_key(config)
+            plaintext = read_file(args.input)
+            ciphertext = encrypt_data(plaintext, sym_key)
+            write_file(config['encryption_settings']['default_encrypted'], ciphertext)
+            print(f"File encrypted and saved as {config['encryption_settings']['default_encrypted']}")
+        elif args.command == 'dec':
+            sym_key = get_symmetric_key(config)
+            ciphertext = read_file(args.input)
+            plaintext = decrypt_data(ciphertext, sym_key)
+            write_file(config['encryption_settings']['default_decrypted'], plaintext)
+            print(f"File decrypted and saved as {config['encryption_settings']['default_decrypted']}")
+
+    except Exception as e:
+        print(f"[ERROR] {str(e)}")
 
 
 if __name__ == "__main__":

@@ -5,9 +5,19 @@ from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 
 
 class SymmetricCrypto:
+    """
+    Handles symmetric (AES) cryptographic operations.
+    """
 
     @staticmethod
     def encrypt(data: bytes, key: bytes) -> bytes:
+        """
+        Encrypt data using AES-CBC.
+
+        :param data: Plaintext bytes.
+        :param key: AES key.
+        :return: IV + ciphertext.
+        """
         iv = os.urandom(16)
         cipher = Cipher(algorithms.AES(key), modes.CBC(iv), backend=default_backend())
         encryptor = cipher.encryptor()
@@ -17,6 +27,13 @@ class SymmetricCrypto:
 
     @staticmethod
     def decrypt(encrypted_data: bytes, key: bytes) -> bytes:
+        """
+        Decrypt AES-CBC encrypted data.
+
+        :param encrypted_data: IV + ciphertext.
+        :param key: AES key.
+        :return: Decrypted plaintext.
+        """
         iv = encrypted_data[:16]
         actual_data = encrypted_data[16:]
         cipher = Cipher(algorithms.AES(key), modes.CBC(iv), backend=default_backend())
@@ -36,8 +53,22 @@ class SymmetricCrypto:
 
 
 def encrypt_data(data: bytes, key: bytes) -> bytes:
+    """
+    Wrapper to encrypt data.
+
+    :param data: Plaintext bytes.
+    :param key: AES key.
+    :return: Encrypted bytes.
+    """
     return SymmetricCrypto.encrypt(data, key)
 
 
 def decrypt_data(encrypted_data: bytes, key: bytes) -> bytes:
+    """
+    Wrapper to decrypt data.
+
+    :param encrypted_data: Encrypted bytes.
+    :param key: AES key.
+    :return: Decrypted plaintext bytes.
+    """
     return SymmetricCrypto.decrypt(encrypted_data, key)
