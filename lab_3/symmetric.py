@@ -50,25 +50,3 @@ class SymmetricCrypto:
     def _unpad(padded_data: bytes) -> bytes:
         unpadder = padding.PKCS7(128).unpadder()
         return unpadder.update(padded_data) + unpadder.finalize()
-
-
-def encrypt_data(data: bytes, key: bytes) -> bytes:
-    """
-    Wrapper to encrypt data.
-
-    :param data: Plaintext bytes.
-    :param key: AES key.
-    :return: Encrypted bytes.
-    """
-    return SymmetricCrypto.encrypt(data, key)
-
-
-def decrypt_data(encrypted_data: bytes, key: bytes) -> bytes:
-    """
-    Wrapper to decrypt data.
-
-    :param encrypted_data: Encrypted bytes.
-    :param key: AES key.
-    :return: Decrypted plaintext bytes.
-    """
-    return SymmetricCrypto.decrypt(encrypted_data, key)

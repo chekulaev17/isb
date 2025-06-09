@@ -1,6 +1,7 @@
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import padding as asym_padding, rsa
+from file_handler import FileHandler  # Добавлен импорт FileHandler
 
 
 class AsymmetricCrypto:
@@ -59,47 +60,44 @@ class AsymmetricCrypto:
         )
 
     @staticmethod
-    def save_private_key(private_key, file_path: str, write_func):
+    def save_private_key(private_key, file_path: str):
         """
         Save private key to a file.
 
         :param private_key: RSA private key.
         :param file_path: Path to save the key.
-        :param write_func: Function to write to file.
         """
         pem = private_key.private_bytes(
             encoding=serialization.Encoding.PEM,
             format=serialization.PrivateFormat.PKCS8,
             encryption_algorithm=serialization.NoEncryption()
         )
-        write_func(file_path, pem)
+        FileHandler.write_file(file_path, pem)
 
     @staticmethod
-    def save_public_key(public_key, file_path: str, write_func):
+    def save_public_key(public_key, file_path: str):
         """
         Save public key to a file.
 
         :param public_key: RSA public key.
         :param file_path: Path to save the key.
-        :param write_func: Function to write to file.
         """
         pem = public_key.public_bytes(
             encoding=serialization.Encoding.PEM,
             format=serialization.PublicFormat.SubjectPublicKeyInfo
         )
-        write_func(file_path, pem)
+        FileHandler.write_file(file_path, pem)
 
     @staticmethod
-    def load_private_key(file_path: str, read_func):
+    def load_private_key(file_path: str):
         """
         Load private key from a file.
 
         :param file_path: Path to private key.
-        :param read_func: Function to read file.
         :return: RSA private key.
         """
         return serialization.load_pem_private_key(
-            read_func(file_path),
+            FileHandler.read_file(file_path),
             password=None,
             backend=default_backend()
         )
